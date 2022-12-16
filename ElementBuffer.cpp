@@ -1,7 +1,7 @@
 #include"ElementBuffer.h"
 
 
-// Constructor that generates a Elements Buffer Object and links it to indices
+//Creates buffer and binds 
 ElementBuffer::ElementBuffer(std::vector<GLuint>& indices)
 {
 	glGenBuffers(1, &ID);
