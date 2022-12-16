@@ -15,9 +15,9 @@ const unsigned int height = 800;
 */
 
 
-// Vertices coordinates
+// Vertices coordinates, each vertex contains the coordinates for positions, colors, and textures
 Vertex vertices[] =
-{ //     COORDINATES     /        COLORS      /   TexCoord  //
+{ //            COORDINATES                 /               COLORS             /      TexCoord  //
 	Vertex{glm::vec3(-0.5f, 0.0f,  0.5f),     glm::vec3(0.83f, 0.70f, 0.44f),	glm::vec2(0.0f, 0.0f)},
 	Vertex{glm::vec3(-0.5f, 0.0f, -0.5f),     glm::vec3(0.83f, 0.70f, 0.44f),	glm::vec2(5.0f, 0.0f)},
 	Vertex{glm::vec3( 0.5f, 0.0f, -0.5f),     glm::vec3(0.83f, 0.70f, 0.44f),	glm::vec2(0.0f, 0.0f)},
@@ -25,7 +25,7 @@ Vertex vertices[] =
 	Vertex{glm::vec3( 0.0f, 0.8f,  0.0f),     glm::vec3(0.92f, 0.86f, 0.76f),	glm::vec2(2.5f, 5.0f)}
 };
 
-// Indices for vertices order
+// Indices specify in which order to visit the vertices
 GLuint indices[] =
 {
 	0, 1, 2,
@@ -39,7 +39,8 @@ GLuint indices[] =
 // To compile run g++ Main.cpp glad.c ElementBuffer.cpp shaderclass.cpp VertexArray.cpp VertexBuffer.cpp stb.cpp Texture.cpp Camera.cpp Mesh.cpp -ldl -lglfw
 int main(){
 
-    //Initialize GLFW and tell it what version of OpenGL is being used
+    //Initialize GLFW and tell it what version of OpenGL is being used (4.6)
+    //GLFW is a library that creates windows cross platform
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);  
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
@@ -63,19 +64,24 @@ int main(){
     //Set viewport to go from (0,0) to (800,800)
     glViewport(0,0,width,height);
 
-    Texture textures[]{
     //Load texture
+    Texture textures[]{
     Texture("water.png", GL_TEXTURE_2D, 0, GL_RGBA ,GL_UNSIGNED_BYTE)
     };
 
-    //Loader shader with the following vert and frag files
+    //Shaders are simply a program that runs on the gpu, vertex shader mainly is used
+    //for telling OpenGL where to create vertices, fragment is for each pixel
     Shader shaderProgram("default.vert","default.frag");    
 
+    //Create array of vertices, indices, and textures
     std::vector <Vertex> verts(vertices, vertices + sizeof(vertices) / sizeof(Vertex));
 	std::vector <GLuint> ind(indices, indices + sizeof(indices) / sizeof(GLuint));
 	std::vector <Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
-	Mesh mainMesh(verts, ind, tex);
+	
+    //Create a Mesh (Mesh is the vertices, indexes, textures that make up an object)
+    Mesh mainMesh(verts, ind, tex);
     
+    //Initialize a camera with the initial 
     Camera camera(width, height, glm::vec3(0.0f,0.0f,2.0f));
 
     glEnable(GL_DEPTH_TEST);
