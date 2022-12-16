@@ -22,7 +22,16 @@ Mesh::Mesh(std::vector <Vertex>& vertices, std::vector <GLuint>& indices, std::v
 	elementBuffer.Unbind();
 }
 
-void Mesh::Draw(Shader& shader, Camera& camera){
+void Mesh::Draw
+(
+	Shader& shader, 
+	Camera& camera,
+	glm::mat4 matrix,
+	glm::vec3 translation, 
+	glm::quat rotation, 
+	glm::vec3 scale
+)
+{
     shader.Activate();
     vertexArray.Bind();
     textures[0].texUnit(shader, "tex0",0);
@@ -32,5 +41,26 @@ void Mesh::Draw(Shader& shader, Camera& camera){
 
 	//Draw call, draws triangles, how many indices we are using
 	//Type being used in index buffer (EBO), and pointer to index buffer (can be 0 since it's bound arleady)
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+	glUniform3f(glGetUniformLocation(shader.ID, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
+	camera.Matrix(shader, "camMatrix");
+
+	// Initialize matrices
+	glm::mat4 trans = glm::mat4(1.0f);
+	glm::mat4 rot = glm::mat4(1.0f);
+	glm::mat4 sca = glm::mat4(1.0f);
+
+	// Transform the matrices to their correct form
+	trans = glm::translate(trans, translation);
+	rot = glm::mat4_cast(rotation);
+	sca = glm::scale(sca, scale);
+
+	// Push the matrices to the vertex shader
+	glUniformMatrix4fv(glGetUniformLocation(shader.ID, "translation"), 1, GL_FALSE, glm::value_ptr(trans));
+	glUniformMatrix4fv(glGetUniformLocation(shader.ID, "rotation"), 1, GL_FALSE, glm::value_ptr(rot));
+	glUniformMatrix4fv(glGetUniformLocation(shader.ID, "scale"), 1, GL_FALSE, glm::value_ptr(sca));
+	glUniformMatrix4fv(glGetUniformLocation(shader.ID, "model"), 1, GL_FALSE, glm::value_ptr(matrix));
+
+	// Draw the actual mesh
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }

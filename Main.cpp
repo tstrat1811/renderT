@@ -1,4 +1,4 @@
-#include"Mesh.h"
+#include"Model.h"
 
 using namespace std;
 
@@ -14,31 +14,9 @@ const unsigned int height = 800;
 (1.0f,1.0f,0.0f) - yellow
 */
 
-
-// Vertices coordinates, each vertex contains the coordinates for positions, colors, and textures
-Vertex vertices[] =
-{ //            COORDINATES                 /               COLORS             /      TexCoord  //
-	Vertex{glm::vec3(-0.5f, 0.0f,  0.5f),     glm::vec3(0.83f, 0.70f, 0.44f),	glm::vec2(0.0f, 0.0f)},
-	Vertex{glm::vec3(-0.5f, 0.0f, -0.5f),     glm::vec3(0.83f, 0.70f, 0.44f),	glm::vec2(5.0f, 0.0f)},
-	Vertex{glm::vec3( 0.5f, 0.0f, -0.5f),     glm::vec3(0.83f, 0.70f, 0.44f),	glm::vec2(0.0f, 0.0f)},
-	Vertex{glm::vec3( 0.5f, 0.0f,  0.5f),     glm::vec3(0.83f, 0.70f, 0.44f),	glm::vec2(5.0f, 0.0f)},
-	Vertex{glm::vec3( 0.0f, 0.8f,  0.0f),     glm::vec3(0.92f, 0.86f, 0.76f),	glm::vec2(2.5f, 5.0f)}
-};
-
-// Indices specify in which order to visit the vertices
-GLuint indices[] =
-{
-	0, 1, 2,
-	0, 2, 3,
-	0, 1, 4,
-	1, 2, 4,
-	2, 3, 4,
-	3, 0, 4
-};
-
-// To compile run g++ Main.cpp glad.c ElementBuffer.cpp shaderclass.cpp VertexArray.cpp VertexBuffer.cpp stb.cpp Texture.cpp Camera.cpp Mesh.cpp -ldl -lglfw
+// To compile run g++ Main.cpp glad.c ElementBuffer.cpp shaderclass.cpp VertexArray.cpp VertexBuffer.cpp stb.cpp Texture.cpp Camera.cpp Mesh.cpp Model.cpp -ldl -lglfw
 int main(){
-
+    
     //Initialize GLFW and tell it what version of OpenGL is being used (4.6)
     //GLFW is a library that creates windows cross platform
     glfwInit();
@@ -64,28 +42,20 @@ int main(){
     //Set viewport to go from (0,0) to (800,800)
     glViewport(0,0,width,height);
 
-    //Load texture
-    Texture textures[]{
-    Texture("water.png", GL_TEXTURE_2D, 0, GL_RGBA ,GL_UNSIGNED_BYTE)
-    };
-
     //Shaders are simply a program that runs on the gpu, vertex shader mainly is used
     //for telling OpenGL where to create vertices, fragment is for each pixel
     Shader shaderProgram("default.vert","default.frag");    
-
+    
     //Create array of vertices, indices, and textures
-    std::vector <Vertex> verts(vertices, vertices + sizeof(vertices) / sizeof(Vertex));
-	std::vector <GLuint> ind(indices, indices + sizeof(indices) / sizeof(GLuint));
-	std::vector <Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
-	
-    //Create a Mesh (Mesh is the vertices, indexes, textures that make up an object)
-    Mesh mainMesh(verts, ind, tex);
+    shaderProgram.Activate();
     
     //Initialize a camera with the initial 
     Camera camera(width, height, glm::vec3(0.0f,0.0f,2.0f));
 
     glEnable(GL_DEPTH_TEST);
-
+    
+    Model model("sword/scene.gltf");
+    
     //MAIN LOOP 
     while(!glfwWindowShouldClose(window)){
         //Color of background
@@ -95,8 +65,9 @@ int main(){
         //Sets shaderProgram as the what OpenGl will sue
         camera.Inputs(window);
         camera.updateMatrix(45.0f, 0.1f, 100.0f);
+        
         //Bind texture
-        mainMesh.Draw(shaderProgram, camera);
+        model.Draw(shaderProgram, camera);
     
         //Set back buffer to front buffer
         glfwSwapBuffers(window);

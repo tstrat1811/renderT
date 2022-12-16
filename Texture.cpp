@@ -1,6 +1,6 @@
 #include"Texture.h"
 
-Texture::Texture(const char* image, GLenum texType, GLenum slot, GLenum format, GLenum pixelType){
+Texture::Texture(const char* image, GLenum texType, GLenum slot){
     type = texType;
     int widthImg, heightImg, numColCh;
     stbi_set_flip_vertically_on_load(true);
@@ -20,8 +20,48 @@ Texture::Texture(const char* image, GLenum texType, GLenum slot, GLenum format, 
     glTexParameteri(texType, GL_TEXTURE_WRAP_S,GL_REPEAT);
     glTexParameteri(texType, GL_TEXTURE_WRAP_T,GL_REPEAT);
 
-    //Generate texture, RGB for JPG RGBA for PNG
-    glTexImage2D(texType,0,GL_RGBA,widthImg, heightImg, 0, format, pixelType,bytes);
+    // Check what type of color channels the texture has and load it accordingly
+	if (numColCh == 4)
+		glTexImage2D
+		(
+			GL_TEXTURE_2D,
+			0,
+			GL_RGBA,
+			widthImg,
+			heightImg,
+			0,
+			GL_RGBA,
+			GL_UNSIGNED_BYTE,
+			bytes
+		);
+	else if (numColCh == 3)
+		glTexImage2D
+		(
+			GL_TEXTURE_2D,
+			0,
+			GL_RGBA,
+			widthImg,
+			heightImg,
+			0,
+			GL_RGB,
+			GL_UNSIGNED_BYTE,
+			bytes
+		);
+	else if (numColCh == 1)
+		glTexImage2D
+		(
+			GL_TEXTURE_2D,
+			0,
+			GL_RGBA,
+			widthImg,
+			heightImg,
+			0,
+			GL_RED,
+			GL_UNSIGNED_BYTE,
+			bytes
+		);
+	else
+		throw std::invalid_argument("Automatic Texture type recognition failed");
     glGenerateTextureMipmap(texType);
     stbi_image_free(bytes);
     glBindTexture(texType,0);

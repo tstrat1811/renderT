@@ -256,22 +256,11 @@ std::vector<Texture> Model::getTextures()
 		// If the texture has been loaded, skip this
 		if (!skip)
 		{
-			// Load diffuse texture
-			if (texPath.find("baseColor") != std::string::npos)
-			{
-				Texture diffuse = Texture((fileDirectory + texPath).c_str(), "diffuse", loadedTex.size());
+			
+				Texture diffuse = Texture((fileDirectory + texPath).c_str(), GL_TEXTURE_2D, loadedTex.size());
 				textures.push_back(diffuse);
 				loadedTex.push_back(diffuse);
-				loadedTexName.push_back(texPath);
-			}
-			// Load specular texture
-			else if (texPath.find("metallicRoughness") != std::string::npos)
-			{
-				Texture specular = Texture((fileDirectory + texPath).c_str(), "specular", loadedTex.size());
-				textures.push_back(specular);
-				loadedTex.push_back(specular);
-				loadedTexName.push_back(texPath);
-			}
+				loadedTexName.push_back(texPath);			
 		}
 	}
 
@@ -293,7 +282,6 @@ std::vector<Vertex> Model::assembleVertices
 			Vertex
 			{
 				positions[i],
-				normals[i],
 				glm::vec3(1.0f, 1.0f, 1.0f),
 				texUVs[i]
 			}

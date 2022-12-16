@@ -10,6 +10,9 @@ in vec2 texCoord;
 
 uniform sampler2D tex0;
 
+// Gets the position of the camera from the main function
+uniform vec3 camPos;
+
 void main()
 {
    FragColor = texture(tex0, texCoord);
