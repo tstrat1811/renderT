@@ -54,7 +54,7 @@ int main(){
 
     glEnable(GL_DEPTH_TEST);
     
-    Model model("sword/scene.gltf");
+    Model model("sword/scene.gltf"); 
     
     //MAIN LOOP 
     while(!glfwWindowShouldClose(window)){
