@@ -15,7 +15,7 @@ const unsigned int height = 800;
 (1.0f,1.0f,0.0f) - yellow
 */
 
-// To compile run g++ Main.cpp glad.c ElementBuffer.cpp shaderclass.cpp VertexArray.cpp VertexBuffer.cpp stb.cpp Texture.cpp Camera.cpp Mesh.cpp Model.cpp ErorrCatcher.cpp -ldl -lglfw
+// To compile run g++ Main.cpp glad.c ElementBuffer.cpp shaderclass.cpp VertexArray.cpp VertexBuffer.cpp stb.cpp Texture.cpp Camera.cpp Mesh.cpp Model.cpp ErrorCatcher.cpp -ldl -lglfw
 int main(){
     
     ErrorCatcher errorCatcher;
