@@ -1,4 +1,5 @@
 #include"Model.h"
+#include"ErrorCatcher.h"
 
 using namespace std;
 
@@ -14,9 +15,10 @@ const unsigned int height = 800;
 (1.0f,1.0f,0.0f) - yellow
 */
 
-// To compile run g++ Main.cpp glad.c ElementBuffer.cpp shaderclass.cpp VertexArray.cpp VertexBuffer.cpp stb.cpp Texture.cpp Camera.cpp Mesh.cpp Model.cpp -ldl -lglfw
+// To compile run g++ Main.cpp glad.c ElementBuffer.cpp shaderclass.cpp VertexArray.cpp VertexBuffer.cpp stb.cpp Texture.cpp Camera.cpp Mesh.cpp Model.cpp ErorrCatcher.cpp -ldl -lglfw
 int main(){
     
+    ErrorCatcher errorCatcher;
     //Initialize GLFW and tell it what version of OpenGL is being used (4.6)
     //GLFW is a library that creates windows cross platform
     glfwInit();
@@ -25,7 +27,7 @@ int main(){
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
  
     //Create window of 800 x 800 with name of "Testing stuff"
-    GLFWwindow* window = glfwCreateWindow(width,height, "Testing stuff",0,0);
+    GLFWwindow* window = glfwCreateWindow(width,height, "renderT by Taylor Stratford :)",0,0);
    
     //Error handling if window fail to create
     if(window == NULL){
@@ -54,7 +56,7 @@ int main(){
 
     glEnable(GL_DEPTH_TEST);
     
-    Model model("sword/scene.gltf"); 
+    Model model("grindstone/scene.gltf"); 
     
     //MAIN LOOP 
     while(!glfwWindowShouldClose(window)){
@@ -66,8 +68,12 @@ int main(){
         camera.Inputs(window);
         camera.updateMatrix(45.0f, 0.1f, 100.0f);
         
-        //Bind texture
+        //Error catcher
+        errorCatcher.GLClearError();
+        //Draw the model
         model.Draw(shaderProgram, camera);
+
+        errorCatcher.GLCheckError();
     
         //Set back buffer to front buffer
         glfwSwapBuffers(window);
