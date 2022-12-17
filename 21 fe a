@@ -1,0 +1,41 @@
+[33mcommit 191283f8433c5c92b14b306504a28d7a02c8aac2[m[33m ([m[1;36mHEAD -> [m[1;32mmodels[m[33m)[m
+Author: = <taylor.252252@gmail.com>
+Date:   Sat Dec 17 10:44:05 2022 -0500
+
+    created error catcher
+
+[33mcommit 02e2f8783a9080b28fc62e4aa95384ca06359f05[m[33m ([m[1;31mrenderT/models[m[33m)[m
+Author: Strat <taylor.252252@gmail.com>
+Date:   Fri Dec 16 16:19:04 2022 -0500
+
+    asdf
+
+[33mcommit 1f08d0fbef3e924e633489b8277ba8392d400ba6[m
+Author: Strat <taylor.252252@gmail.com>
+Date:   Fri Dec 16 16:15:22 2022 -0500
+
+    model loading
+
+[33mcommit 3b5cccc988095a0ed88f20a70e1c6c3ba974d895[m
+Author: Strat <taylor.252252@gmail.com>
+Date:   Fri Dec 16 14:17:42 2022 -0500
+
+    model start
+
+[33mcommit 16b91b20cc13a972bd2ee2301d1e865bb23635ae[m
+Author: Strat <taylor.252252@gmail.com>
+Date:   Fri Dec 16 14:17:32 2022 -0500
+
+    model start
+
+[33mcommit ca4c8fe588d4e6c7d27ff96390e9315b5845b51c[m[33m ([m[1;31mrenderT/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Strat <taylor.252252@gmail.com>
+Date:   Thu Dec 15 16:48:44 2022 -0500
+
+    Created mesh class and moved logic / made more generic
+
+[33mcommit 74f4582abd8b01928a7c7baad71e5f9e45368657[m
+Author: Strat <taylor.252252@gmail.com>
+Date:   Tue Dec 13 19:31:18 2022 -0500
+
+    first
