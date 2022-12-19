@@ -2,7 +2,7 @@
 
 Model::Model(const char* file)
 {
-	// Make a JSON object
+	// Make a JSON object and get file using the method in the shader class
 	std::string text = get_file_contents(file);
 	JSON = json::parse(text);
 
@@ -44,7 +44,7 @@ void Model::loadMesh(unsigned int indMesh)
 	std::vector<GLuint> indices = getIndices(JSON["accessors"][indAccInd]);
 	std::vector<Texture> textures = getTextures();
 
-	// Combine the vertices, indices, and textures into a mesh
+	// Combine the vertices, indices, and textures into a mesh and insert into meshes property 
 	meshes.push_back(Mesh(vertices, indices, textures));
 }
 

@@ -1,10 +1,10 @@
-#ifndef ERRORCATCHER_CLASS_H
-#define ERRORCATCHER_CLASSH_H
+#ifndef Logger_CLASS_H
+#define Logger_CLASSH_H
 
 #include <glad.h>
 #include <iostream>
 
-class ErrorCatcher{
+class Logger{
     public:
         void GLClearError();
         void GLCheckError();

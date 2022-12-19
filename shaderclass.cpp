@@ -41,6 +41,7 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile){
     
     //Error handling
     int result;
+    
     glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &result);
     if(result == GL_FALSE){
         int length;

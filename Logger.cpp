@@ -1,12 +1,11 @@
-#include "ErrorCatcher.h"
+#include "Logger.h"
 
 
-
-void ErrorCatcher::GLClearError(){
+void Logger::GLClearError(){
     while(glGetError() != GL_NO_ERROR);
 }
 
-void ErrorCatcher::GLCheckError(){
+void Logger::GLCheckError(){
     while(GLenum error = glGetError()){
         std::cout<<"[!!! Error Detected !!! (" << error <<")"<<std::endl;
     }
