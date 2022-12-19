@@ -58,7 +58,7 @@ int main(){
     
     Model model("grindstone/scene.gltf"); 
     
-    float red = 1.0f;
+    float red = 0.0f;
     bool reverseRed = false;
 
     //MAIN LOOP 
@@ -76,7 +76,6 @@ int main(){
         if (red >= 1.0f){reverseRed = true;}
         if (red <= 0.0f){reverseRed = false;}
         reverseRed ? red -= .005f : red += .005f;
-        
         
         //Error catcher
         logger.GLClearError();
