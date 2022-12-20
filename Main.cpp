@@ -56,7 +56,7 @@ int main(){
 
     glEnable(GL_DEPTH_TEST);
     
-    Model model("grindstone/scene.gltf"); 
+    Model model("Textures/grindstone/scene.gltf"); 
     
     float red = 0.0f;
     bool reverseRed = false;
