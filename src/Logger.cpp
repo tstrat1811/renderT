@@ -10,3 +10,9 @@ void Logger::GLCheckError(){
         std::cout<<"[!!! Error Detected !!! (" << error <<")"<<std::endl;
     }
 }
+
+void Logger::FramesLog(){
+    i++;
+    std::cout<<i<<::std::endl;
+}
+

@@ -15,7 +15,7 @@ const unsigned int height = 800;
 (1.0f,1.0f,0.0f) - yellow
 */
 
-// To compile run g++ Main.cpp glad.c ElementBuffer.cpp shaderclass.cpp VertexArray.cpp VertexBuffer.cpp stb.cpp Texture.cpp Camera.cpp Mesh.cpp Model.cpp Logger.cpp -ldl -lglfw
+// To compile run g++ Main.cpp glad.cpp ElementBuffer.cpp shaderclass.cpp VertexArray.cpp VertexBuffer.cpp stb.cpp Texture.cpp Camera.cpp Mesh.cpp Model.cpp Logger.cpp -ldl -lglfw
 int main(){
     
     Logger logger;
@@ -56,23 +56,21 @@ int main(){
 
     glEnable(GL_DEPTH_TEST);
     
-    Model model("Textures/grindstone/scene.gltf"); 
+    Model model("../Textures/grindstone/scene.gltf"); 
     
     float red = 0.0f;
     bool reverseRed = false;
-
     //MAIN LOOP 
     while(!glfwWindowShouldClose(window)){
         //Color of background
         glClearColor(red,0.4f,0.5f,1.0f);
-
         //Clears the back buffer
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         //Takes inputs in from window to camera         
         camera.Inputs(window);
         camera.updateMatrix(45.0f, 0.1f, 100.0f);
-
+        logger.FramesLog();
         if (red >= 1.0f){reverseRed = true;}
         if (red <= 0.0f){reverseRed = false;}
         reverseRed ? red -= .005f : red += .005f;

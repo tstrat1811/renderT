@@ -1,4 +1,4 @@
-#include "../renderT/shaderclass.h"
+#include "shaderclass.h"
 
 //reads vertex files 
 std::string get_file_contents(const char* filename){
