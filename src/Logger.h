@@ -3,7 +3,6 @@
 
 #include <glad.h>
 #include <iostream>
-#include<chrono>
 
 class Logger{
     public:

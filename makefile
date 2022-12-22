@@ -1,30 +1,19 @@
-TARGET = renderT
-
 CC = g++
-CFLAGS = -g
+CFLAGS = -c -Wall
 
-OUTDIR = ./
-SUBDIR = ./src
-DIR_OBJ = ./obj
+SOURCES = $(wildcard src/*.cpp)
+OBJECTS = $(patsubst src/%.cpp, obj/%.o, $(SOURCES))
 
-INCS = $(wildcard *.h $(foreach fd, $(SUBDIR), $(fd)/*.h))
-SRCS = $(wildcard *.cpp $(foreach fd, $(SUBDIR), $(fd)/*.cpp))
-NODIR_SRC = $(notdir $(SRCS))
-OBJS = $(addprefix $(DIR_OBJ)/, $(SRCS:cpp=o)) # obj/xxx.o obj/folder/xxx .o
-INC_DIRS = $(addprefix -I, $(SUBDIR))
+renderT: $(OBJECTS)
+	$(CC) $(OBJECTS) -o $@ -ldl -lglfw
 
-.PHONY: clean echoes
+obj/%.o: src/%.cpp
+	$(CC) $(CFLAGS) $< -o $@
 
-$(TARGET): $(OBJS)
-	$(CC) -o $(OUTDIR)/$@ $(OBJS) -ldl -lglfw
-
-$(DIR_OBJ)/%.o: %.cpp $(INCS)
-	mkdir -p $(@D)
-	$(CC) -o $@ -c $< $(CFLAGS) $(INC_DIRS) 
+.PHONY: clean
 clean:
-	rm -rf $(OUTDIR)/$(TARGET) $(DIR_OBJ)/*
+	rm -f obj/*.o renderT
 
 echoes:
-	@echo "INC files: $(INCS)"  
-	@echo "SRC files: $(SRCS)"
-	@echo "OBJ files: $(OBJS)"
+	@echo "INC files: $(SOURCES)"
+	@echo "OBJ files: $(OBECTJS)"
