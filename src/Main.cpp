@@ -57,7 +57,7 @@ int main(){
     glEnable(GL_DEPTH_TEST);
     
     Model model("../Textures/grindstone/scene.gltf"); 
-    
+
     float red = 0.0f;
     bool reverseRed = false;
     //MAIN LOOP 
@@ -70,7 +70,7 @@ int main(){
         //Takes inputs in from window to camera         
         camera.Inputs(window);
         camera.updateMatrix(45.0f, 0.1f, 100.0f);
-        logger.FramesLog();
+        logger.FramesLog(red);
         if (red >= 1.0f){reverseRed = true;}
         if (red <= 0.0f){reverseRed = false;}
         reverseRed ? red -= .005f : red += .005f;

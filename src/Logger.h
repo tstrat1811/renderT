@@ -9,7 +9,7 @@ class Logger{
         int i = 0;
         void GLClearError();
         void GLCheckError();
-        void FramesLog();
+        void FramesLog(float red);
 };
 
 #endif
