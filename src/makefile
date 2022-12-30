@@ -2,8 +2,10 @@ CC = g++
 CFLAGS = -c -Wall
 LDFLAGS = -ldl -lglfw
 
-SOURCES = $(wildcard *.cpp)
-OBJECTS = $(patsubst %.cpp, ../obj/%.o, $(SOURCES))
+
+SOURCES = $(wildcard *.cpp */*.cpp)
+
+OBJECTS = $(patsubst %/%.cpp, ../obj/%.o, $(SOURCES))
 
 renderT: $(OBJECTS)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $@

@@ -1,5 +1,6 @@
 #include"Model.h"
 #include"Logger.h"
+#include "GuiHelper.h"
 
 using namespace std;
 
@@ -15,9 +16,9 @@ const unsigned int height = 800;
 (1.0f,1.0f,0.0f) - yellow
 */
 
-// To compile run g++ Main.cpp glad.cpp ElementBuffer.cpp shaderclass.cpp VertexArray.cpp VertexBuffer.cpp stb.cpp Texture.cpp Camera.cpp Mesh.cpp Model.cpp Logger.cpp -ldl -lglfw
+// To compile run g++ Main.cpp glad.cpp ElementBuffer.cpp shaderclass.cpp VertexArray.cpp VertexBuffer.cpp stb.cpp Texture.cpp Camera.cpp Mesh.cpp Model.cpp Logger.cpp -I/imgui imgui.cpp -I/imgui imgui_impl_glfw.cpp -ldl -lglfw
 int main(){
-    
+     
     Logger logger;
     //Initialize GLFW and tell it what version of OpenGL is being used (4.6)
     //GLFW is a library that creates windows cross platform
@@ -28,16 +29,17 @@ int main(){
  
     //Create window of 800 x 800 with name of "Testing stuff"
     GLFWwindow* window = glfwCreateWindow(width,height, "renderT by Taylor Stratford :)",0,0);
-   
+   //Make the new window the current context
+    glfwMakeContextCurrent(window);
+
     //Error handling if window fail to create
     if(window == NULL){
         std::cout<<"Failed to make da window \n";
         glfwTerminate();
         return -1;
     }
-
-    //Make the new window the current context
-    glfwMakeContextCurrent(window);
+    
+    GuiHelper guihelper(window);
 
     //Load GLAD to configure OpenGL
     gladLoadGL();
@@ -53,17 +55,22 @@ int main(){
     
     //Initialize a camera with the initial 
     Camera camera(width, height, glm::vec3(0.0f,0.0f,2.0f));
+    camera.mouseTest = true;
 
     glEnable(GL_DEPTH_TEST);
-    
+
     Model model("../Textures/grindstone/scene.gltf"); 
 
+    DebugStruct background = {0.4f,0.5f,1.0f};
     float red = 0.0f;
     bool reverseRed = false;
+
+    
     //MAIN LOOP 
     while(!glfwWindowShouldClose(window)){
+        glfwPollEvents();
         //Color of background
-        glClearColor(red,0.4f,0.5f,1.0f);
+        glClearColor(background.red, background.green, background.blue, 1.0f);
         //Clears the back buffer
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -79,9 +86,10 @@ int main(){
         logger.GLClearError();
         //Draw the model
         model.Draw(shaderProgram, camera);
+        guihelper.Display(background);
 
         logger.GLCheckError();
-    
+        
         //Set back buffer to front buffer
         glfwSwapBuffers(window);
         //Track GLFW Events
@@ -90,6 +98,9 @@ int main(){
 
     //Delete objects we created
     shaderProgram.Delete();
+    
+    guihelper.Destroy();
+    
     //Delete the window
     glfwDestroyWindow(window);
     //Terminate glfw
