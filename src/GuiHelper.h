@@ -21,6 +21,7 @@ class GuiHelper{
       bool show_demo_window;
       bool show_another_window;
       const char* glsl_version;
+      bool reverseRed;
       
       
       GuiHelper(GLFWwindow* window);  

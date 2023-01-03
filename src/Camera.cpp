@@ -64,9 +64,9 @@ void Camera::Inputs(GLFWwindow* window)
 		speed = 0.04f;
 	}
 
-
+	auto& io = ImGui::GetIO();
 	//Deals with mouse inputs
-	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS & io.WantCaptureMouse == false)
 	{
 		//Hides mouse cursor
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);

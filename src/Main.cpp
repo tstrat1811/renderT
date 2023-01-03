@@ -55,14 +55,13 @@ int main(){
     
     //Initialize a camera with the initial 
     Camera camera(width, height, glm::vec3(0.0f,0.0f,2.0f));
-    camera.mouseTest = true;
+    camera.mouseTest = false;
 
     glEnable(GL_DEPTH_TEST);
 
     Model model("../Textures/grindstone/scene.gltf"); 
 
-    DebugStruct background = {0.4f,0.5f,1.0f};
-    float red = 0.0f;
+    DebugStruct background = {0.4f,0.5f,1.0f, false};
     bool reverseRed = false;
 
     
@@ -77,11 +76,13 @@ int main(){
         //Takes inputs in from window to camera         
         camera.Inputs(window);
         camera.updateMatrix(45.0f, 0.1f, 100.0f);
-        logger.FramesLog(red);
-        if (red >= 1.0f){reverseRed = true;}
-        if (red <= 0.0f){reverseRed = false;}
-        reverseRed ? red -= .005f : red += .005f;
-        
+        if (background.dynamicBg == true) {
+            if (background.red >= 1.0f){reverseRed = true;}
+            if (background.red <= 0.0f){reverseRed = false;}
+            reverseRed ? background.red -= .005f : background.red += .005f;
+        }
+        logger.FramesLog(background.red);
+          
         //Error catcher
         logger.GLClearError();
         //Draw the model
