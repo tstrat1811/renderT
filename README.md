@@ -11,11 +11,16 @@ renderT is a low level, barebones rendering engine made in c++ adhering to lates
 
 ![alt text](https://github.com/tstrat1811/renderT/blob/master/renderT.png?raw=true)
 
-To compile for linux --
+Before Compiling Place the following files in your include directory  
+- GLFW (folder)  
+- glad.h (file)  
+- glm (folder)
 
-1.) Open a terminal in the /src directory
-2.) Run "make"
-3.) Run the executable with "./renderT"
+To compile for linux --  
+
+1.) Open a terminal in the /src directory  
+2.) Run "make"  
+3.) Run the executable with "./renderT"  
 
 To compile for other platforms --
 1.) Not entirely sure but this was made with portability in mind using cross platform libraries so should be somewhat easy
