@@ -23,7 +23,7 @@ GuiHelper::GuiHelper(GLFWwindow* window){
 }
 
 void GuiHelper::Display(DebugStruct& bgstruct){
-    
+
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
@@ -33,16 +33,15 @@ void GuiHelper::Display(DebugStruct& bgstruct){
 
     ImGui::Begin("Dee Bug");                          //Create "Dee Bug" window
 
-    ImGui::Text("This is some useless text.");               // Display some text (you can use a format strings too)
+    ImGui::Text("Debug Menu.");               // Display some text (you can use a format strings too)
     ImGui::Checkbox("Changing Colors", &bgstruct.dynamicBg);      // Edit bools storing our window open/close state
 
     ImGui::SliderFloat("Red", &bgstruct.red, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
     ImGui::SliderFloat("Green", &bgstruct.green, 0.0f, 1.0f);      
     ImGui::SliderFloat("Blue", &bgstruct.blue, 0.0f, 1.0f);      
 
-    ImGui::SameLine();
     ImGui::Text("counter = %d", counter);
-    if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+    if (ImGui::Button("Cool Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
         counter++;
     if(counter > 2){
         ImGui::BeginChild("Secret Window");

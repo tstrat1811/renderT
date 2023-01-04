@@ -59,7 +59,7 @@ int main(){
 
     glEnable(GL_DEPTH_TEST);
 
-    Model model("../Textures/grindstone/scene.gltf"); 
+    Model model("../Textures/map/scene.gltf"); 
 
     DebugStruct background = {0.4f,0.5f,1.0f, false};
     bool reverseRed = false;
