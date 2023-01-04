@@ -20,5 +20,5 @@ To compile for linux --
 To compile for other platforms --
 1.) Not entirely sure but this was made with portability in mind using cross platform libraries so should be somewhat easy
 ===============================================================================
-For details on how this works please refer to the included file
+For details on how this works please refer to "renderT walkthrough.pdf"
 ===============================================================================
