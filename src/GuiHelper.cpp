@@ -31,7 +31,7 @@ void GuiHelper::Display(DebugStruct& bgstruct){
     static float f = 0.0f;
     static int counter = 0;
 
-    ImGui::Begin("Dee Bug");                          //Create "Dee Bug" window
+    ImGui::Begin("Dee Bug", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);                          //Create "Dee Bug" window
 
     ImGui::Text("Debug Menu.");               // Display some text (you can use a format strings too)
     ImGui::Checkbox("Changing Colors", &bgstruct.dynamicBg);      // Edit bools storing our window open/close state
